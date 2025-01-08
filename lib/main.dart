@@ -27,7 +27,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -43,7 +44,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       curve: Curves.easeInOut,
     );
     _controller.forward();
-
 
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
@@ -75,32 +75,32 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 child: ScaleTransition(
                   scale: _animation,
                   child: Image.asset(
-                    'assets/donately.png', // Logo utama
+                    'assets/donately.pngttttt', // Logo utama
                     width: 221, // Ukuran diperbesar dari 200 ke 300
                     height: 158, // Ukuran diperbesar dari 200 ke 300
                   ),
                 ),
               ),
               const Spacer(),
-             
+
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
                 child: Text(
                   'simetrya group',
-                  style:GoogleFonts.dmSerifText(
-                   textStyle:  TextStyle(
+                  style: GoogleFonts.dmSerifText(
+                      textStyle: TextStyle(
                     color: Colors.green[800],
                     fontSize: 16,
-                     fontWeight: FontWeight.w500,
-                     shadows: [
-                    Shadow(
-                     offset: const Offset(0, 4), // y = 4
-                     blurRadius: 4,              // blur = 4
-                     color: Colors.black.withOpacity(0.25), // standar opacity shadow
-                     ),
+                    fontWeight: FontWeight.w500,
+                    shadows: [
+                      Shadow(
+                        offset: const Offset(0, 4), // y = 4
+                        blurRadius: 4, // blur = 4
+                        color: Colors.black
+                            .withOpacity(0.25), // standar opacity shadow
+                      ),
                     ],
-                    )
-                  ),
+                  )),
                 ),
               ),
             ],
@@ -119,7 +119,8 @@ class NextScreen extends StatefulWidget {
   State<NextScreen> createState() => _NextScreenState();
 }
 
-class _NextScreenState extends State<NextScreen> with SingleTickerProviderStateMixin {
+class _NextScreenState extends State<NextScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _slideAnimation;
   late Animation<double> _scaleAnimation;
@@ -143,7 +144,7 @@ class _NextScreenState extends State<NextScreen> with SingleTickerProviderStateM
 
     _scaleAnimation = Tween<double>(
       begin: 1.0,
-      end:1.4,
+      end: 1.4,
     ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.easeInOut,
@@ -217,14 +218,11 @@ class _NextScreenState extends State<NextScreen> with SingleTickerProviderStateM
                             fontWeight: FontWeight.normal,
                           ),
                         ),
-                        Text(
-                          'membantu sesama manusia',
-                          style: GoogleFonts.poppins(
-                            color: Color(0xff2F614D),
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400
-                          )
-                        ),
+                        Text('membantu sesama manusia',
+                            style: GoogleFonts.poppins(
+                                color: Color(0xff2F614D),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400)),
                       ],
                     ),
                   ),
@@ -244,8 +242,9 @@ class _NextScreenState extends State<NextScreen> with SingleTickerProviderStateM
                     shadows: [
                       Shadow(
                         offset: const Offset(0, 4), // y = 4
-                        blurRadius: 4,              // blur = 4
-                        color: Colors.black.withOpacity(0.25), // standar opacity shadow
+                        blurRadius: 4, // blur = 4
+                        color: Colors.black
+                            .withOpacity(0.25), // standar opacity shadow
                       ),
                     ],
                   ),
