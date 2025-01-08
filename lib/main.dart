@@ -6,7 +6,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 }
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -82,26 +82,35 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
               const Spacer(),
+              const SimetryaGroupText(), // Use shared widget here
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  'simetrya group',
-                  style: GoogleFonts.dmSerifText(
-                      textStyle: TextStyle(
-                    color: Colors.green[800],
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(0, 4), // y = 4
-                        blurRadius: 4, // blur = 4
-                        color: Colors.black
-                            .withOpacity(0.25), // standar opacity shadow
-                      ),
-                    ],
-                  )),
-                ),
+// Shared widget for Simetrya Group text
+class SimetryaGroupText extends StatelessWidget {
+  const SimetryaGroupText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Text(
+        'Simetrya Group',
+        style: GoogleFonts.dmSerifText(
+          textStyle: TextStyle(
+            color: Colors.green[800],
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            shadows: [
+              Shadow(
+                offset: const Offset(0, 4), // y = 4
+                blurRadius: 4, // blur = 4
+                color: Colors.black.withOpacity(0.25), // standar opacity shadow
               ),
             ],
           ),
@@ -113,7 +122,7 @@ class _SplashScreenState extends State<SplashScreen>
 
 // Halaman berikutnya (ganti sesuai kebutuhan)
 class NextScreen extends StatefulWidget {
-  const NextScreen({Key? key}) : super(key: key);
+  const NextScreen({super.key});
 
   @override
   State<NextScreen> createState() => _NextScreenState();
@@ -125,6 +134,7 @@ class _NextScreenState extends State<NextScreen>
   late Animation<double> _slideAnimation;
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
+  late Animation<double> _fadeOutAnimation;
 
   @override
   void initState() {
@@ -158,6 +168,14 @@ class _NextScreenState extends State<NextScreen>
       curve: const Interval(0.5, 1.0, curve: Curves.easeIn),
     ));
 
+    _fadeOutAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: const Interval(0.0, 1.0, curve: Curves.easeInOut),
+    ));
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.forward();
     });
@@ -177,78 +195,59 @@ class _NextScreenState extends State<NextScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                AnimatedBuilder(
-                  animation: _controller,
-                  builder: (context, child) {
-                    return Transform.translate(
-                      offset: Offset(
-                        Tween<double>(
-                          begin: 0,
-                          end: -100,
-                        ).evaluate(_slideAnimation),
-                        0,
-                      ),
-                      child: Transform.scale(
-                        scale: _scaleAnimation.value,
-                        child: Image.asset(
-                          'assets/donately.png',
-                          width: 20, // Ukuran diperbesar dari 200 ke 300
-                          height: 10, // Ukuran diperbesar dari 200 ke 300
+            Flexible(
+              flex: 2,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  AnimatedBuilder(
+                    animation: _controller,
+                    builder: (context, child) {
+                      return Transform.translate(
+                        offset: Offset(
+                          Tween<double>(
+                            begin: 0,
+                            end: -100,
+                          ).evaluate(_slideAnimation),
+                          0,
                         ),
-                      ),
-                    );
-                  },
-                ),
-                Transform.translate(
-                  offset: const Offset(80, 0),
-                  child: FadeTransition(
-                    opacity: _opacityAnimation,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Domal',
-                          style: GoogleFonts.rozhaOne(
-                            color: Color(0xff2F614D),
-                            fontSize: 48,
-                            fontWeight: FontWeight.normal,
+                        child: Transform.scale(
+                          scale: _scaleAnimation.value,
+                          child: Image.asset(
+                            'assets/donately.png',
+                            width: 100, // Adjusted size
+                            height: 50, // Adjusted size
                           ),
                         ),
-                        Text('membantu sesama manusia',
-                            style: GoogleFonts.poppins(
-                                color: Color(0xff2F614D),
-                                fontSize: 10,
-                                fontWeight: FontWeight.w400)),
-                      ],
+                      );
+                    },
+                  ),
+                  Transform.translate(
+                    offset: const Offset(40, 0), // Reduced gap
+                    child: FadeTransition(
+                      opacity: _opacityAnimation,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Domal',
+                            style: GoogleFonts.rozhaOne(
+                              color: const Color(0xff2F614D),
+                              fontSize: 48,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          Text('membantu sesama manusia',
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xff2F614D),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w400)),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: Text(
-                'Simetrya Group',
-                style: GoogleFonts.dmSerifText(
-                  textStyle: TextStyle(
-                    color: Colors.green[800],
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(0, 4), // y = 4
-                        blurRadius: 4, // blur = 4
-                        color: Colors.black
-                            .withOpacity(0.25), // standar opacity shadow
-                      ),
-                    ],
-                  ),
-                ),
+                ],
               ),
             ),
           ],
