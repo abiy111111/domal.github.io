@@ -11,11 +11,26 @@ class OpeningPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Halaman Berikutnya'),
       ),
-      body: Center(
-        child: Text(
-          'Ini adalah halaman berikutnya',
-          style: TextStyle(fontSize: 24, color: Colors.black),
-        ),
+      body: Stack(
+        fit: StackFit.expand, // Membuat gambar mengisi seluruh layar
+        children: [
+          // Menampilkan gambar dengan ukuran penuh (full-screen)
+          Image.asset(
+            'assets/openingimage.jpg', // Ganti dengan path gambar Anda
+            fit: BoxFit.cover, // Gambar akan menutupi layar
+          ),
+          // Layer di atas gambar untuk menambahkan teks atau widget lainnya
+          Center(
+            child: Text(
+              'halo domal',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.white, // Warna teks agar terlihat di atas gambar
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

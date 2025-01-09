@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:domalapp/pages/opening.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -69,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              // Logo animation
+              // Animasi logo
               FadeTransition(
                 opacity: _animation,
                 child: ScaleTransition(
@@ -82,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
               const Spacer(),
-              const SimetryaGroupText(), // Use shared widget here
+              const SimetryaGroupText(), // Gunakan widget bersama di sini
             ],
           ),
         ),
@@ -91,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-// Shared widget for Simetrya Group text
+// Widget bersama untuk teks Simetrya Group
 class SimetryaGroupText extends StatelessWidget {
   const SimetryaGroupText({super.key});
 
@@ -120,7 +121,7 @@ class SimetryaGroupText extends StatelessWidget {
   }
 }
 
-// Halaman berikutnya (ganti sesuai kebutuhan)
+// Halaman berikutnya
 class NextScreen extends StatefulWidget {
   const NextScreen({super.key});
 
@@ -178,6 +179,14 @@ class _NextScreenState extends State<NextScreen>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.forward();
+
+      // Menavigasi ke OpeningPage setelah animasi selesai
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const OpeningPage()),
+        );
+      });
     });
   }
 
@@ -215,15 +224,15 @@ class _NextScreenState extends State<NextScreen>
                           scale: _scaleAnimation.value,
                           child: Image.asset(
                             'assets/donately.png',
-                            width: 100, // Adjusted size
-                            height: 50, // Adjusted size
+                            width: 100, // Ukuran disesuaikan
+                            height: 50, // Ukuran disesuaikan
                           ),
                         ),
                       );
                     },
                   ),
                   Transform.translate(
-                    offset: const Offset(40, 0), // Reduced gap
+                    offset: const Offset(40, 0), // Kurangi jarak
                     child: FadeTransition(
                       opacity: _opacityAnimation,
                       child: Column(
