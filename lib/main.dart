@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:domalapp/pages/opening.dart'; 
+import 'package:domalapp/pages/opening.dart';
 
 void main() {
   runApp(const MyApp());
@@ -184,7 +184,7 @@ class _NextScreenState extends State<NextScreen>
       Future.delayed(const Duration(seconds: 3), () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const OpeningPage()),
+          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
         );
       });
     });
