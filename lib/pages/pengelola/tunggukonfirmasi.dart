@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'kodeverifikasi.dart';
+import '../kodeverifikasi.dart';
 
 class Tunggukonfirmasi extends StatelessWidget {
-  const Tunggukonfirmasi({Key? key}) : super(key: key);
+  const Tunggukonfirmasi({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class Tunggukonfirmasi extends StatelessWidget {
               children: [
                 Transform.translate(
                   offset: const Offset(0, -100),
-                  child: Column(
+                  child: const Column(
                     children: [
-                      const Text(
+                      Text(
                         'Join us to start searching',
                         style: TextStyle(
                           fontSize: 24,
@@ -26,8 +26,8 @@ class Tunggukonfirmasi extends StatelessWidget {
                           fontFamily: 'Rubik',
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
+                      SizedBox(height: 8),
+                      Text(
                         'Anda dapat mencari donasi, membuat galang dana,\ndan menemukan bantuan sosial',
                         textAlign: TextAlign.center,
                         style: TextStyle(

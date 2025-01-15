@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'homepagePengelola.dart';
+import 'pengelola/homepagePengelola.dart';
 
 class KodeVerifikasi extends StatefulWidget {
-  const KodeVerifikasi({Key? key}) : super(key: key);
+  const KodeVerifikasi({super.key});
 
   @override
   State<KodeVerifikasi> createState() => _KodeVerifikasiState();

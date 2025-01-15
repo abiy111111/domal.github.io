@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'loginpage.dart';
+import '../loginpage.dart';
+import 'homepageDonatur.dart';
 
 class PendaftaranDonatur extends StatefulWidget {
-  const PendaftaranDonatur({Key? key}) : super(key: key);
+  const PendaftaranDonatur({super.key});
 
   @override
   _PendaftaranDonaturState createState() => _PendaftaranDonaturState();
@@ -15,7 +16,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
   @override
   Widget build(BuildContext context) {
     final borderColor = const Color(0xFF677294).withOpacity(0.16);
-    final textColor = const Color(0xFF677294);
+    const textColor = Color(0xFF677294);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -207,7 +208,11 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate() && isChecked) {
-                                // Handle registration
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute
+                                   (builder: (context) =>  HomepageDonatur()),
+                                );
                               }
                             },
                             style: ElevatedButton.styleFrom(

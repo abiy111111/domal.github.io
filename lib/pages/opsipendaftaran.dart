@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'pendaftarandonatur.dart';
-import 'pendaftaranpengelola.dart';
+import 'donatur/pendaftarandonatur.dart';
+import 'pengelola/pendaftaranpengelola.dart';
 
 class RoleSelectionPage extends StatefulWidget {
-  const RoleSelectionPage({Key? key}) : super(key: key);
+  const RoleSelectionPage({super.key});
 
   @override
   _RoleSelectionPageState createState() => _RoleSelectionPageState();
@@ -40,9 +40,9 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
               children: [
                 Transform.translate(
                   offset: const Offset(0, -70), // Menggeser ke atas 
-                  child: Column(
+                  child: const Column(
                     children: [
-                      const Text(
+                      Text(
                         'Join us to start searching',
                         style: TextStyle(
                           fontSize: 24,
@@ -50,8 +50,8 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                           fontFamily: 'Rubik',
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
+                      SizedBox(height: 8),
+                      Text(
                         'Anda dapat mencari donasi, membuat galang dana,\ndan menemukan bantuan sosial',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -83,7 +83,7 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                   child: Theme(
                     data: Theme.of(context).copyWith(
                       radioTheme: RadioThemeData(
-                        fillColor: MaterialStateProperty.all(Colors.grey[800]),
+                        fillColor: WidgetStateProperty.all(Colors.grey[800]),
                       ),
                     ),
                     child: Column(

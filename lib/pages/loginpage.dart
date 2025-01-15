@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'opsipendaftaran.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -99,9 +99,9 @@ class _LoginPageState extends State<LoginPage> {
                 const Expanded(flex: 2, child: SizedBox()),
                 Container(
                   padding: const EdgeInsets.all(24.0),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: const BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                     ),
@@ -257,12 +257,12 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.grey[600],
                               fontSize: 14,
                             ),
-                            children: [
-                              const TextSpan(text: "Don't have an account? "),
+                            children: const [
+                              TextSpan(text: "Don't have an account? "),
                               TextSpan(
                                 text: "Create an account now",
                                 style: TextStyle(
-                                  color: const Color(0xFF2E7D32),
+                                  color: Color(0xFF2E7D32),
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

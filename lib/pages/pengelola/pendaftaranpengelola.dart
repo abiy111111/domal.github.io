@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'tunggukonfirmasi.dart';
-import 'loginpage.dart';
+import '../loginpage.dart';
 
 class PendaftaranPengelola extends StatefulWidget {
-  const PendaftaranPengelola({Key? key}) : super(key: key);
+  const PendaftaranPengelola({super.key});
 
   @override
   _PendaftaranDonaturState createState() => _PendaftaranDonaturState();
@@ -16,7 +16,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
   @override
   Widget build(BuildContext context) {
     final borderColor = const Color(0xFF677294).withOpacity(0.16);
-    final textColor = const Color(0xFF677294);
+    const textColor = Color(0xFF677294);
 
     return Scaffold(
       backgroundColor: Colors.white,
