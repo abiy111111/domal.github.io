@@ -59,7 +59,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Name',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide(color: borderColor),
@@ -74,7 +74,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
@@ -89,7 +89,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Phone',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
@@ -104,7 +104,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Organization name',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
@@ -116,7 +116,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Align(
+                        const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Upload E-KTP',
@@ -172,7 +172,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
@@ -181,7 +181,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
                             ),
-                            suffixIcon: Icon(Icons.visibility_off, color: textColor),
+                            suffixIcon: const Icon(Icons.visibility_off, color: textColor),
                           ),
                           obscureText: true,
                         ),
@@ -201,7 +201,7 @@ class _PendaftaranDonaturState extends State<PendaftaranPengelola> {
                                 shape: const CircleBorder(),
                               ),
                             ),
-                            Expanded(
+                            const Expanded(
                               child: Text(
                                 'I agree with the Terms of Service & Privacy Policy',
                                 style: TextStyle(

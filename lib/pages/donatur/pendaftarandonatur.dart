@@ -62,7 +62,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                           child: ElevatedButton.icon(
                             onPressed: () {},
                             icon: Image.asset('assets/google.png', height: 30),
-                            label: Text(
+                            label: const Text(
                               'Google',
                               style: TextStyle(color: textColor),
                             ),
@@ -88,7 +88,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                           child: ElevatedButton.icon(
                             onPressed: () {},
                             icon: Image.asset('assets/facebook.png', height: 30),
-                            label: Text(
+                            label: const Text(
                               'Facebook',
                               style: TextStyle(color: textColor),
                             ),
@@ -117,7 +117,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Name',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide(color: borderColor),
@@ -132,7 +132,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
@@ -147,7 +147,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Phone',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
@@ -162,7 +162,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: TextStyle(color: textColor),
+                            labelStyle: const TextStyle(color: textColor),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
@@ -171,7 +171,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: borderColor),
                             ),
-                            suffixIcon: Icon(Icons.visibility_off, color: textColor),
+                            suffixIcon: const Icon(Icons.visibility_off, color: textColor),
                           ),
                           obscureText: true,
                         ),
@@ -191,7 +191,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                                 shape: const CircleBorder(), 
                               ),
                             ),
-                            Expanded(
+                            const Expanded(
                               child: Text(
                                 'I agree with the Terms of Service & Privacy Policy',
                                 style: TextStyle(
@@ -211,7 +211,7 @@ class _PendaftaranDonaturState extends State<PendaftaranDonatur> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute
-                                   (builder: (context) =>  HomepageDonatur()),
+                                   (builder: (context) =>  const HomepageDonatur()),
                                 );
                               }
                             },

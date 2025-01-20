@@ -3,19 +3,16 @@ import 'dart:async';
 import '../pencarian.dart';
 import '../lihatsemua.dart';
 import '../toogglePage.dart';
-import '../massage.dart';
-import 'historyDonatur.dart';
-import '../detailKampanye.dart';
-import 'profileDonatur.dart';
+import 'notifikasiAdmin.dart';
 
-class HomepageDonatur extends StatefulWidget {
-  const HomepageDonatur({super.key});
+class HomepageAdmin extends StatefulWidget {
+  const HomepageAdmin({super.key});
 
   @override
-  _HomepageDonaturState createState() => _HomepageDonaturState();
+  _HomepageAdminState createState() => _HomepageAdminState();
 }
 
-class _HomepageDonaturState extends State<HomepageDonatur> {
+class _HomepageAdminState extends State<HomepageAdmin> {
   int _currentBackgroundIndex = 0;
   int _selectedIndex = 0;
   final List<String> backgroundImages = [
@@ -90,12 +87,18 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
                 ),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.notifications, color: Colors.white, size: 28),
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              onPressed: () {},
-            ),
+           IconButton(
+  icon: const Icon(Icons.notifications, color: Colors.white, size: 28),
+  padding: EdgeInsets.zero,
+  constraints: const BoxConstraints(),
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  NotifikasiAdmin()),
+    );
+  },
+),
+
           ],
         ),
       ),
@@ -103,34 +106,16 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
   }
 
   void _onItemTapped(int index) {
-  if (index == 1) { // Index 1 untuk Chat
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const MessageScreen()),
-    );
-  } else if (index == 3) { // Index 3 untuk History
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HistoryPage()),
-    );
-  } else if (index == 4) { // Index 4 untuk Profile
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ProfileScreen()),
-    );
-  } else {
     setState(() {
       _selectedIndex = index;
     });
   }
-}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image with Overlay
           SizedBox(
             height: 200,
             child: Stack(
@@ -156,15 +141,12 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
           
           Column(
             children: [
-              // Fixed top bar
               _buildTopBar(),
               
-              // Scrollable content
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      // Welcome Text
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -173,7 +155,7 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'halo !',
+                                'Halo Admin!',
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
@@ -181,7 +163,7 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
                                 ),
                               ),
                               Text(
-                                'selamat datang',
+                                'Selamat Datang',
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
@@ -202,7 +184,6 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
                         ),
                         child: Column(
                           children: [
-                            // Main Image
                             Container(
                               height: 180,
                               decoration: BoxDecoration(
@@ -214,7 +195,6 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            // Three Cards Row
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: _buildCards(context),
@@ -223,7 +203,6 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
                         ),
                       ),
                       
-                      // Lihat Semua Section
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -274,22 +253,15 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/formkit_people.png',
+              width: 24,
+              height: 24,
+              color: _selectedIndex == 1 ? const Color(0xFF0EBE7F) : Colors.grey,
+            ),
+            label: 'User List',
           ),
-           BottomNavigationBarItem(
-  icon: Container(
-      child: Image.asset(
-        'assets/homepage/scan.png',
-        width: 55, // Perbesar ukuran logo
-        height: 55,
-      ),
-    
-  ),
-  label: '',
-),
-
           const BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'History',
@@ -305,9 +277,9 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
 
   List<Widget> _buildCards(BuildContext context) {
     final cardData = [
-      {'image': 'assets/homepage/batin.jpg', 'title': 'Beramal Rutin'},
-      {'image': 'assets/homepage/dosis.jpg', 'title': 'Donasi via QRIS'},
-      {'image': 'assets/homepage/baris.jpg', 'title': 'Berbagi Makanan Gratis'},
+      {'image': 'assets/homepage/batin.jpg', 'title': 'Verifikasi Pengelola'},
+      {'image': 'assets/homepage/dosis.jpg', 'title': 'Kelola Pengguna'},
+      {'image': 'assets/homepage/baris.jpg', 'title': 'Laporan Donasi'},
     ];
 
     return cardData.map((data) => Container(
@@ -363,22 +335,6 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
 class DonationCard extends StatelessWidget {
   const DonationCard({super.key});
 
-  void _navigateToDetail(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const DetailKampanye(
-          title: 'Donasi Korban Banjir Bandang di manado',
-          image: 'assets/homepage/banjirbandang.jpg',
-          collected: 8510000,
-          target: 11000000,
-          donators: 67,
-          percentage: 75,
-        ),
-      )
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -398,6 +354,7 @@ class DonationCard extends StatelessWidget {
         ],
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -415,6 +372,7 @@ class DonationCard extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
                       'Donasi Korban Banjir Bandang di manado',
@@ -427,64 +385,94 @@ class DonationCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     Row(
                       children: [
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'terkumpul',
-                              style: TextStyle(
-                                color: Color(0xFF677294),
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              '8.510.000',
-                              style: TextStyle(
-                                color: Color(0xFF404345),
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
+                        const Icon(
+                          Icons.person,
+                          size: 12,
+                          color: Color(0xFF677294),
                         ),
-                        const Spacer(),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFF0EBE7F),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                const Text(
-                                  '75.0%',
-                                  style: TextStyle(
-                                    color: Color(0xFF677294),
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            'Posted by: @johndoe123',
+                            style: const TextStyle(
+                              color: Color(0xFF677294),
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
                             ),
-                            const Text(
-                              '67 donator Stories',
-                              style: TextStyle(
-                                color: Color(0xFF677294),
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Expanded(
+                          flex: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'terkumpul',
+                                style: TextStyle(
+                                  color: Color(0xFF677294),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
+                              Text(
+                                '8.510.000',
+                                style: TextStyle(
+                                  color: Color(0xFF404345),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 8,
+                                    height: 8,
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xFF0EBE7F),
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  const Text(
+                                    '75.0%',
+                                    style: TextStyle(
+                                      color: Color(0xFF677294),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Text(
+                                '67 donator Stories',
+                                style: TextStyle(
+                                  color: Color(0xFF677294),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -493,54 +481,51 @@ class DonationCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const Spacer(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Target',
-                    style: TextStyle(
-                      color: Color(0xFF677294),
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Target',
+                      style: TextStyle(
+                        color: Color(0xFF677294),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  Text(
-                    '11.000.000',
-                    style: TextStyle(
-                      color: Color(0xFF404345),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
+                    Text(
+                      '11.000.000',
+                      style: TextStyle(
+                        color: Color(0xFF404345),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-  onPressed: () {
-    _navigateToDetail(context); // Memanggil fungsi navigasi yang sudah dibuat
-  },
-  style: ElevatedButton.styleFrom(
-    backgroundColor: const Color(0xFF0EBE7F),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(4),
-    ),
-    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-    minimumSize: const Size(0, 32),
-  ),
-  child: const Text(
-    'mulai donasi',
-    style: TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
-      color: Colors.white,
-    ),
-  ),
-),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0EBE7F),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  minimumSize: const Size(0, 32),
+                ),
+                child: const Text(
+                  'Lihat Detail',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),
