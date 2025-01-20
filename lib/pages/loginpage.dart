@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'opsipendaftaran.dart';
+import 'admin/homepageAdmin.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,12 +12,33 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _obscurePassword = true;
   bool _isChecked = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   void _navigateToOPsiPendaftaran() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const RoleSelectionPage()),
     );
+  }
+
+  void _handleLogin() {
+    // Cek apakah email admin valid
+    if (_emailController.text == "admin@domal.com" && 
+        _passwordController.text == "admin123") {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomepageAdmin()),
+      );
+    } else {
+      // Tampilkan pesan error
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email atau password admin tidak valid'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   Widget _buildSocialButton({
@@ -46,8 +68,7 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(
-              vertical: 8, horizontal: 12), // Reduced padding
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -58,15 +79,15 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Image.asset(
               imagePath,
-              height: 16, // Reduced from 24
-              width: 16, // Reduced from 24
+              height: 16,
+              width: 16,
             ),
-            const SizedBox(width: 6), // Reduced spacing
+            const SizedBox(width: 6),
             Text(
               text,
               style: const TextStyle(
                 color: Colors.black87,
-                fontSize: 13, // Slightly reduced font size
+                fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -78,7 +99,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Rest of the code remains the same
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -120,6 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         child: TextField(
+                          controller: _emailController, // Tambahkan controller
                           decoration: InputDecoration(
                             labelText: 'Name/Email',
                             filled: true,
@@ -147,6 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         child: TextField(
+                          controller: _passwordController, // Tambahkan controller
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
                             labelText: 'Password',
@@ -227,9 +249,7 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Add login functionality
-                          },
+                          onPressed: _handleLogin, // Ubah ke fungsi login yang baru
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF2E7D32),
                             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -250,25 +270,25 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 16),
                       Center(
                         child: GestureDetector(
-                        onTap: _navigateToOPsiPendaftaran,
-                        child: RichText(
-                          text: TextSpan(
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 14,
-                            ),
-                            children: const [
-                              TextSpan(text: "Don't have an account? "),
-                              TextSpan(
-                                text: "Create an account now",
-                                style: TextStyle(
-                                  color: Color(0xFF2E7D32),
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          onTap: _navigateToOPsiPendaftaran,
+                          child: RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 14,
                               ),
-                            ],
+                              children: const [
+                                TextSpan(text: "Don't have an account? "),
+                                TextSpan(
+                                  text: "Create an account now",
+                                  style: TextStyle(
+                                    color: Color(0xFF2E7D32),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
                         ),
                       ),
                       const SizedBox(height: 24),

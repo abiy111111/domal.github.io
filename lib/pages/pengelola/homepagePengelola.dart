@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import '../pencarian.dart';
 import '../lihatsemua.dart';
+import '../toogglePage.dart';
+import '../massage.dart';
 
 class HomepagePengelola extends StatefulWidget {
   const HomepagePengelola({super.key});
@@ -40,7 +42,12 @@ class _HomepageDonaturState extends State<HomepagePengelola> {
               icon: const Icon(Icons.menu, color: Colors.white, size: 28),
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TogglePage()),
+                );
+              },
             ),
             Expanded(
               child: GestureDetector(
@@ -93,10 +100,17 @@ class _HomepageDonaturState extends State<HomepagePengelola> {
   }
 
   void _onItemTapped(int index) {
+  if (index == 1) { // Index 1 untuk Chat
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MessageScreen()),
+    );
+  } else {
     setState(() {
       _selectedIndex = index;
     });
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +118,7 @@ class _HomepageDonaturState extends State<HomepagePengelola> {
       body: Stack(
         children: [
           // Background Image with Overlay
-          Container(
+          SizedBox(
             height: 200,
             child: Stack(
               children: [

@@ -23,8 +23,8 @@ class LihatSemuaScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         itemCount: 5, // You can adjust this based on your data
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
+          return const Padding(
+            padding: EdgeInsets.only(bottom: 16.0),
             child: DonationCard(),
           );
         },
