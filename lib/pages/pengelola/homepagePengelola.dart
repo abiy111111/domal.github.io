@@ -4,6 +4,9 @@ import '../pencarian.dart';
 import '../lihatsemua.dart';
 import '../toogglePage.dart';
 import '../massage.dart';
+import 'profilepengelola.dart';
+import 'buatKampanye.dart';
+import 'historyPengelolah.dart';
 
 class HomepagePengelola extends StatefulWidget {
   const HomepagePengelola({super.key});
@@ -99,11 +102,26 @@ class _HomepageDonaturState extends State<HomepagePengelola> {
     );
   }
 
-  void _onItemTapped(int index) {
+void _onItemTapped(int index) {
   if (index == 1) { // Index 1 untuk Chat
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const MessageScreen()),
+    );
+  } else if (index == 2) { // Index 2 untuk Add (Buat Kampanye)
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CreateCampaignScreen()),
+    );
+  } else if (index == 3) { // Index 3 untuk History
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HistoryPengelola()),
+    );
+  } else if (index == 4) { // Index 4 untuk Profile
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const PengelolaProfileScreen()),
     );
   } else {
     setState(() {
