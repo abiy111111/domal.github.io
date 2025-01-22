@@ -4,6 +4,7 @@ import '../pencarian.dart';
 import '../lihatsemua.dart';
 import '../toogglePage.dart';
 import 'notifikasiAdmin.dart';
+import 'userList.dart';
 
 class HomepageAdmin extends StatefulWidget {
   const HomepageAdmin({super.key});
@@ -105,11 +106,19 @@ class _HomepageAdminState extends State<HomepageAdmin> {
     );
   }
 
-  void _onItemTapped(int index) {
+void _onItemTapped(int index) {
+  if (index == 1) {
+    // Navigate to UserList page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const UserList()),
+    );
+  } else {
     setState(() {
       _selectedIndex = index;
     });
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -338,8 +347,7 @@ class DonationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 333,
-      height: 160,
+      width: double.infinity,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -481,7 +489,7 @@ class DonationCard extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
+          const SizedBox(height: 12),
           Row(
             children: [
               const Expanded(
