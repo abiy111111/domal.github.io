@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'detailPerizinanKampanye.dart';
+import 'detailPersetujuanPengelola.dart';
 
 class NotifikasiAdmin extends StatefulWidget {
-  const NotifikasiAdmin({Key? key}) : super(key: key);
+  const NotifikasiAdmin({super.key});
 
   @override
   State<NotifikasiAdmin> createState() => _NotifikasiAdminState();
@@ -52,7 +54,7 @@ class _NotifikasiAdminState extends State<NotifikasiAdmin> with SingleTickerProv
   labelColor: const Color(0xFF0EBE7F),
   unselectedLabelColor: Colors.grey,
   indicator: UnderlineTabIndicator(
-    borderSide: BorderSide(width: 3.0, color: Color(0xFF0EBE7F)),
+    borderSide: const BorderSide(width: 3.0, color: Color(0xFF0EBE7F)),
     insets: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 4),
   ),
   tabs: const [
@@ -87,12 +89,12 @@ class _NotifikasiAdminState extends State<NotifikasiAdmin> with SingleTickerProv
                         padding: const EdgeInsets.all(16),
                         child: Row(
                           children: [
-                            CircleAvatar(
+                            const CircleAvatar(
                               radius: 24,
                               backgroundImage: AssetImage('assets/adlipr.jpg'),
                             ),
                             const SizedBox(width: 12),
-                            Expanded(
+                            const Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -103,7 +105,7 @@ class _NotifikasiAdminState extends State<NotifikasiAdmin> with SingleTickerProv
                                       color: Colors.black87,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  SizedBox(height: 4),
                                   Text(
                                     'Wednesday at 9:42 AM',
                                     style: TextStyle(
@@ -115,7 +117,14 @@ class _NotifikasiAdminState extends State<NotifikasiAdmin> with SingleTickerProv
                               ),
                             ),
                             OutlinedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                             Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DetailPersetujuanPengelola(),
+                            ),
+                          );
+                              },
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: const Color(0xFF0EBE7F),
                                 side: const BorderSide(color: Color(0xFF0EBE7F)),
@@ -133,8 +142,8 @@ class _NotifikasiAdminState extends State<NotifikasiAdmin> with SingleTickerProv
                   },
                 ),
 
-                // Kampanye Tab
-        ListView.builder(
+// Kampanye Tab
+ListView.builder(
   padding: const EdgeInsets.all(16),
   itemCount: 3,
   itemBuilder: (context, index) {
@@ -170,9 +179,9 @@ class _NotifikasiAdminState extends State<NotifikasiAdmin> with SingleTickerProv
                   ),
                 ),
                 const SizedBox(height: 8),
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'Target',
                       style: TextStyle(
@@ -217,36 +226,23 @@ class _NotifikasiAdminState extends State<NotifikasiAdmin> with SingleTickerProv
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DetailPerizinanKampanye(),
+                            ),
+                          );
+                        },
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.red,
-                          side: const BorderSide(color: Colors.red),
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          minimumSize: const Size(60, 30),
+                          foregroundColor: const Color(0xFF0EBE7F),
+                          side: const BorderSide(color: Color(0xFF0EBE7F)),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: const Text(
-                          'Tolak',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF0EBE7F),
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          minimumSize: const Size(60, 30),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text(
-                          'Setuju',
-                          style: TextStyle(fontSize: 13),
-                        ),
+                        child: const Text('See details..'),
                       ),
                     ],
                   ),

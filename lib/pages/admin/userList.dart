@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'detailUserDonatur.dart';  
+import 'detailUserPengelola.dart'; 
 
 class UserList extends StatefulWidget {
-  const UserList({Key? key}) : super(key: key);
+  const UserList({super.key});
 
   @override
   State<UserList> createState() => _UserListState();
@@ -119,7 +121,17 @@ class _UserListState extends State<UserList> with SingleTickerProviderStateMixin
                   SizedBox(
                     height: 32,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Navigasi ke halaman detail berdasarkan tipe pengguna
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => isPengelola
+                                ? const DetailUserPengelola()
+                                : const DetailUserDonatur(),
+                          ),
+                        );
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: const Color(0xFF0EBE7F),
                         padding: const EdgeInsets.symmetric(horizontal: 12),

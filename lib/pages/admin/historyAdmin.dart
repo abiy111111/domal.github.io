@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HistoryPengelola extends StatefulWidget {
-  const HistoryPengelola({super.key});
+class HistoryAdmin extends StatefulWidget {
+  const HistoryAdmin({super.key});
 
   @override
-  _HistoryPengelolaState createState() => _HistoryPengelolaState();
+  _HistoryAdminState createState() => _HistoryAdminState();
 }
 
-class _HistoryPengelolaState extends State<HistoryPengelola> with SingleTickerProviderStateMixin {
+class _HistoryAdminState extends State<HistoryAdmin> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override

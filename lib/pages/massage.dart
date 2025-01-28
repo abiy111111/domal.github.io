@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'HalamanChat.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -11,7 +12,6 @@ class _MessageScreenState extends State<MessageScreen> {
   String selectedFilter = 'Semua';
   bool isDropdownOpen = false;
 
-  // Extended sample message data
   final List<Map<String, dynamic>> messages = [
     {
       'sender': 'IkhlasLahirBatin',
@@ -36,30 +36,6 @@ class _MessageScreenState extends State<MessageScreen> {
       'message': 'Bagaimana kabar anak-anak di panti?',
       'date': '25/8',
       'isRead': true,
-    },
-    {
-      'sender': 'KasihSayang',
-      'message': 'Untuk program beasiswa periode depan...',
-      'date': '24/8',
-      'isRead': true,
-    },
-    {
-      'sender': 'BantuanCepat',
-      'message': 'Pengiriman bantuan sudah dalam perjalanan',
-      'date': '24/8',
-      'isRead': false,
-    },
-    {
-      'sender': 'PeduliPendidikan',
-      'message': 'Laporan penggunaan dana bulan ini...',
-      'date': '23/8',
-      'isRead': true,
-    },
-    {
-      'sender': 'AmalJariyah',
-      'message': 'Konfirmasi jadwal kunjungan besok',
-      'date': '23/8',
-      'isRead': false,
     },
   ];
 
@@ -98,7 +74,6 @@ class _MessageScreenState extends State<MessageScreen> {
         children: [
           Column(
             children: [
-              // Search bar
               Container(
                 padding: const EdgeInsets.all(16),
                 color: Colors.white,
@@ -117,8 +92,6 @@ class _MessageScreenState extends State<MessageScreen> {
                   ),
                 ),
               ),
-
-              // Filter dropdown trigger
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 color: Colors.white,
@@ -147,8 +120,6 @@ class _MessageScreenState extends State<MessageScreen> {
                   ),
                 ),
               ),
-
-              // Messages list
               Expanded(
                 child: ListView.builder(
                   itemCount: getFilteredMessages().length,
@@ -160,12 +131,10 @@ class _MessageScreenState extends State<MessageScreen> {
               ),
             ],
           ),
-
-          // Blur overlay and dropdown when open
           if (isDropdownOpen)
             Column(
               children: [
-                const SizedBox(height: 130), // Height of search + filter trigger
+                const SizedBox(height: 130),
                 Container(
                   color: Colors.white,
                   width: double.infinity,
@@ -252,7 +221,7 @@ class _MessageScreenState extends State<MessageScreen> {
             Expanded(
               child: Text(
                 message['message'],
-                 style: TextStyle(
+                style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey[600],
                 ),
@@ -283,7 +252,12 @@ class _MessageScreenState extends State<MessageScreen> {
           ],
         ),
         onTap: () {
-          // Handle message tap
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(),
+            ),
+          );
         },
       ),
     );

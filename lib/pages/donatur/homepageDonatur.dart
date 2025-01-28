@@ -4,9 +4,12 @@ import '../pencarian.dart';
 import '../lihatsemua.dart';
 import '../toogglePage.dart';
 import '../massage.dart';
-import 'historyDonatur.dart'; 
+import 'historyDonatur.dart';
 import '../detailKampanye.dart';
 import 'profileDonatur.dart';
+import 'notifikasidonatur.dart';
+
+
 
 class HomepageDonatur extends StatefulWidget {
   const HomepageDonatur({super.key});
@@ -94,36 +97,47 @@ class _HomepageDonaturState extends State<HomepageDonatur> {
               icon: const Icon(Icons.notifications, color: Colors.white, size: 28),
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
-              onPressed: () {},
+            onPressed: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const NotificationsPage()),
+  );
+},
             ),
           ],
         ),
       ),
     );
   }
-
-  void _onItemTapped(int index) {
-  if (index == 1) { // Index 1 untuk Chat
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const MessageScreen()),
-    );
-  } else if (index == 3) { // Index 3 untuk History
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HistoryPage()),
-    );
-  } else if (index == 4) { // Index 4 untuk Profile
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ProfileScreen()),
-    );
-  } else {
-    setState(() {
-      _selectedIndex = index;
-    });
+void _onItemTapped(int index) {
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MessageScreen()),
+      );
+     
+        } else if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HistoryPage()),
+      );
+ 
+    } else if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HistoryPage()),
+      );
+    } else if (index == 4) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {

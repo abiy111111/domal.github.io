@@ -5,6 +5,8 @@ import '../lihatsemua.dart';
 import '../toogglePage.dart';
 import 'notifikasiAdmin.dart';
 import 'userList.dart';
+import 'historyAdmin.dart';
+import 'profileAdmin.dart';
 
 class HomepageAdmin extends StatefulWidget {
   const HomepageAdmin({super.key});
@@ -95,7 +97,7 @@ class _HomepageAdminState extends State<HomepageAdmin> {
   onPressed: () {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) =>  NotifikasiAdmin()),
+      MaterialPageRoute(builder: (context) =>  const NotifikasiAdmin()),
     );
   },
 ),
@@ -107,11 +109,27 @@ class _HomepageAdminState extends State<HomepageAdmin> {
   }
 
 void _onItemTapped(int index) {
-  if (index == 1) {
+  if (index == 0) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  } else if (index == 1) {
     // Navigate to UserList page
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const UserList()),
+    );
+  } else if (index == 2) {
+    // Navigate to History page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HistoryAdmin()),
+    );
+  } else if (index == 3) {
+    // Navigate to Profile page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfileAdmin()),
     );
   } else {
     setState(() {
@@ -119,6 +137,7 @@ void _onItemTapped(int index) {
     });
   }
 }
+
 
   @override
   Widget build(BuildContext context) {
@@ -394,18 +413,18 @@ class DonationCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
-                    Row(
+                    const Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.person,
                           size: 12,
                           color: Color(0xFF677294),
                         ),
-                        const SizedBox(width: 4),
+                        SizedBox(width: 4),
                         Expanded(
                           child: Text(
                             'Posted by: @johndoe123',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Color(0xFF677294),
                               fontSize: 10,
                               fontWeight: FontWeight.w500,

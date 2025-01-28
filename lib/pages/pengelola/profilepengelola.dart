@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import '../massage.dart';
+import 'homepagePengelola.dart';
+import 'historyPengelolah.dart';
+import 'kampanyeSaya.dart';
 
 class PengelolaProfileScreen extends StatefulWidget {
   const PengelolaProfileScreen({super.key});
@@ -11,9 +15,35 @@ class _PengelolaProfileScreenState extends State<PengelolaProfileScreen> {
   int _selectedIndex = 4;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 0) {
+      // Home
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomepagePengelola()),
+      );
+    } else if (index == 1) {
+      // Chat
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MessageScreen()),
+      );
+    } else if (index == 3) {
+      // History
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HistoryPengelola()),
+      );
+    } else if (index == 4) {
+      // Profile (current screen)
+      return;
+    }
+  }
+
+  void _navigateToKampanyeSaya() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const KampanyeSaya()),
+    );
   }
 
   @override
@@ -81,23 +111,23 @@ class _PengelolaProfileScreenState extends State<PengelolaProfileScreen> {
                 ),
                 const SizedBox(height: 20),
                 // Stats Row
-             Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: _buildStatColumn('Campaigns\nCreated', '5'),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: _buildStatColumn('Donations\nReceived', '1500'),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: _buildStatColumn('Total Funds\nRaised', '50000'),
-    ),
-  ],
-),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: _buildStatColumn('Campaigns\nCreated', '5'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: _buildStatColumn('Donations\nReceived', '1500'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: _buildStatColumn('Total Funds\nRaised', '50000'),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 20),
                 // DONATUR badge
                 Container(
@@ -120,6 +150,27 @@ class _PengelolaProfileScreenState extends State<PengelolaProfileScreen> {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 20),
+                // "Kampanye Anda" button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ElevatedButton(
+                        onPressed: _navigateToKampanyeSaya,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor:  const Color(0xFF0EBE7F),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: const Text('Kampanye Anda'),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
                 // Info list
@@ -146,7 +197,7 @@ class _PengelolaProfileScreenState extends State<PengelolaProfileScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+ bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
@@ -163,10 +214,18 @@ class _PengelolaProfileScreenState extends State<PengelolaProfileScreen> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/homepage/scan.png',
-              width: 55,
-              height: 55,
+            icon: Container(
+              width: 45,
+              height: 45,
+              decoration: const BoxDecoration(
+                color: Color(0xFF0EBE7F),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
             label: '',
           ),
@@ -183,37 +242,38 @@ class _PengelolaProfileScreenState extends State<PengelolaProfileScreen> {
     );
   }
 
-Widget _buildStatColumn(String label, String value) {
-  return Column(
-    children: [
-      Text(
-        value,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+  Widget _buildStatColumn(String label, String value) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
-      Text(
-        label,
-        textAlign: TextAlign.center,  
-        style: const TextStyle(
-          color: Colors.grey,
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.grey,
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
+
   Widget _buildInfoRow(IconData icon, String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
         children: [
-          Icon(icon, color: Colors.grey),
+          Icon(icon, color: const Color.fromARGB(255, 255, 255, 255)),
           const SizedBox(width: 10),
           Text(
             text,
             style: const TextStyle(
-              color: Colors.grey,
+              color: Color.fromARGB(255, 255, 255, 255),
             ),
           ),
         ],

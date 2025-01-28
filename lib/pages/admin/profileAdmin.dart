@@ -1,44 +1,44 @@
 import 'package:flutter/material.dart';
-import 'homepagedonatur.dart';  // Add this import
-import '../massage.dart';          // Add this import
-import 'historydonatur.dart';   // Add this import
-  
+import 'homepageAdmin.dart';
+import 'userList.dart';
+import 'historyAdmin.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class ProfileAdmin extends StatefulWidget {
+  const ProfileAdmin({super.key});
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _ProfileAdminState createState() => _ProfileAdminState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedIndex = 4;
+class _ProfileAdminState extends State<ProfileAdmin> {
+  int _selectedIndex = 3; 
 
   void _onItemTapped(int index) {
     if (index == 0) {
+      // Navigate to Homepage
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomepageDonatur()),
+        MaterialPageRoute(builder: (context) => const HomepageAdmin()),
       );
     } else if (index == 1) {
+      // Navigate to UserList
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MessageScreen()),
+        MaterialPageRoute(builder: (context) => const UserList()),
       );
-  
+    } else if (index == 2) {
+      // Navigate to History
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HistoryAdmin()),
+      );
     } else if (index == 3) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HistoryPage()),
-      );
-    } else {
+      // Already on Profile page
       setState(() {
         _selectedIndex = index;
       });
     }
   }
-
-  // Rest of the code remains the same as before
 
   @override
   Widget build(BuildContext context) {
@@ -107,14 +107,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // Stats Row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildStatColumn('Donations', '25'),
-                    _buildStatColumn('Stories', '25'),
-                    _buildStatColumn('Paid Check', '1500'),
-                  ],
+  children: [
+    _buildStatColumn('Verifikasi Pengelola', '12'),
+    _buildStatColumn('Pengguna Aktif', '500'),
+    _buildStatColumn('Total Kampanye', '150'),
+  ],
                 ),
                 const SizedBox(height: 20),
-                // DONATUR badge
+                // admin
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icon(Icons.star, color: Colors.amber),
                       SizedBox(width: 8),
                       Text(
-                        'DONATUR',
+                        'ADMIN',
                         style: TextStyle(
                           color: Colors.amber,
                           fontWeight: FontWeight.bold,
@@ -161,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
@@ -173,17 +173,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
-          ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/homepage/scan.png',
-              width: 55,
-              height: 55,
+              'assets/formkit_people.png',
+              width: 24,
+              height: 24,
+              color: _selectedIndex == 1 ? const Color(0xFF0EBE7F) : Colors.grey,
             ),
-            label: '',
+            label: 'User List',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.history),
@@ -197,7 +194,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-
   Widget _buildStatColumn(String label, String value) {
     return Column(
       children: [

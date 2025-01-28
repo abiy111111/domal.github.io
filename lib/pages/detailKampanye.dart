@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../pages/donatur/opsi_donasi_donatur.dart';
 
 class DetailKampanye extends StatelessWidget {
   final String title;
@@ -47,7 +48,7 @@ class DetailKampanye extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   const Text(
-                    'pembayaran',
+                    'Detail Kampanye',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
@@ -56,7 +57,7 @@ class DetailKampanye extends StatelessWidget {
                 ],
               ),
             ),
-
+            
             // Scrollable content
             Expanded(
               child: SingleChildScrollView(
@@ -102,13 +103,13 @@ class DetailKampanye extends StatelessWidget {
                             padding: EdgeInsets.only(bottom: 16),
                             child: Text(
                               'Pelosok membutuhkan perhatian kita, terutama anak-anak yang menghadapi tantangan besar dalam pendidikan dan kebutuhan dasar. Dengan menyumbang, kita dapat membantu menyediakan makanan, obat-obatan, dan akses pendidikan. Setiap donasi, sekecil apapun, bisa membuat perbedaan besar. Mari tunjukkan kepedulian kita dan bantu mereka yang berharap.',
-                              style: TextStyle(
+                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
+                                color: Colors.black, 
+                                fontWeight: FontWeight.bold, 
                                 height: 1.5,
-                              ),
-                            ),
+                             ),
+                           ),
                           ),
 
                           // Target and Progress
@@ -218,7 +219,7 @@ class DetailKampanye extends StatelessWidget {
               ),
             ),
 
-            // Donation Button
+           // Donation Button
             Container(
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
@@ -233,7 +234,10 @@ class DetailKampanye extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  // Add donation logic here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PilihDonasi()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF10B981),

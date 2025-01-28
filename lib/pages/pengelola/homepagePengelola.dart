@@ -1,3 +1,4 @@
+import 'package:domalapp/pages/pengelola/notifikasiPengelola.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../pencarian.dart';
@@ -7,6 +8,7 @@ import '../massage.dart';
 import 'profilepengelola.dart';
 import 'buatKampanye.dart';
 import 'historyPengelolah.dart';
+import '../detailKampanye.dart';
 
 class HomepagePengelola extends StatefulWidget {
   const HomepagePengelola({super.key});
@@ -94,7 +96,12 @@ class _HomepageDonaturState extends State<HomepagePengelola> {
               icon: const Icon(Icons.notifications, color: Colors.white, size: 28),
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
-              onPressed: () {},
+              onPressed: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  const NotifikasiPengelola()),
+    );
+              },
             ),
           ],
         ),
@@ -514,7 +521,21 @@ class DonationCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                   Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => DetailKampanye(
+      title: 'Donasi Korban Banjir Bandang di Manado', // changed from campaignTitle
+      image: 'assets/homepage/banjirbandang.jpg', // changed from campaignImage
+      collected: 8510000, // changed from currentAmount
+      target: 11000000, // changed from targetAmount
+      donators: 67, // changed from donatorCount
+      percentage: 75.0, // added percentage calculation
+    ),
+  ),
+);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF0EBE7F),
                     shape: RoundedRectangleBorder(

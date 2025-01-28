@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:domalapp/pages/opening.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
