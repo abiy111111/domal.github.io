@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'riwayatTransaksi.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -10,6 +11,55 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int? expandedIndex;
+
+  final List<Map<String, dynamic>> donationData = [
+    {
+      'title': 'Donasi Korban Banjir Bandang',
+      'donation': 100000,
+      'date': '12 Jan 2024',
+      'status': 'completed',
+      'type': 'uang',
+      'image': 'assets/homepage/banjirbandang.jpg',
+      'paymentMethod': 'GOPAY',
+      'transactionId': 'TRX202401120001',
+      'transactionDateTime': DateTime(2024, 1, 12, 14, 30),
+    },
+    {
+      'title': 'Bantuan Gempa Aceh',
+      'donation': '5 Kardus Pakaian Layak Pakai',
+      'date': '15 Jan 2024',
+      'status': 'collecting',
+      'type': 'barang',
+      'image': 'assets/homepage/banjirbandang.jpg',
+    },
+    {
+      'title': 'Donasi Panti Asuhan',
+      'donation': '2 Kardus Buku & Alat Tulis',
+      'date': '18 Jan 2024',
+      'status': 'ongoing',
+      'type': 'barang',
+      'image': 'assets/homepage/banjirbandang.jpg',
+    },
+    {
+      'title': 'Donasi Bencana Longsor',
+      'donation': 250000,
+      'date': '20 Jan 2024',
+      'status': 'completed',
+      'type': 'uang',
+      'image': 'assets/homepage/banjirbandang.jpg',
+      'paymentMethod': 'BCA',
+      'transactionId': 'TRX202401200002',
+      'transactionDateTime': DateTime(2024, 1, 20, 15, 45),
+    },
+    {
+      'title': 'Bantuan Korban Kebakaran',
+      'donation': '3 Kardus Sembako',
+      'date': '22 Jan 2024',
+      'status': 'collecting',
+      'type': 'barang',
+      'image': 'assets/homepage/banjirbandang.jpg',
+    },
+  ];
 
   @override
   void initState() {
@@ -29,8 +79,49 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
     });
   }
 
+  String _getStatusText(String status) {
+    switch (status) {
+      case 'completed':
+        return 'Donasi Telah Disalurkan';
+      case 'collecting':
+        return 'Pengumpulan Dana';
+      case 'ongoing':
+        return 'Donasi Sedang Berlangsung';
+      default:
+        return '';
+    }
+  }
+
+  Color _getStatusColor(String status) {
+    return status == 'completed' ? const Color(0xFF0EBE7F) : Colors.orange;
+  }
+
+  void _navigateToTransactionHistory(Map<String, dynamic> donation) {
+    if (donation['type'] == 'uang') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RiwayatTransaksi(
+            amount: donation['donation'] as int,
+            selectedPaymentMethod: donation['paymentMethod'],
+            transactionId: donation['transactionId'],
+            transactionDateTime: donation['transactionDateTime'],
+          ),
+        ),
+      );
+    }
+  }
+
+  String _formatDonation(dynamic donation) {
+    if (donation is int) {
+      return 'Rp ${donation.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}';
+    }
+    return donation.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Rest of the build method remains the same
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -67,9 +158,10 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
   Widget _buildDonationHistory() {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: 5,
+      itemCount: donationData.length,
       itemBuilder: (context, index) {
-        bool isProcessed = index % 2 == 0;
+        final donation = donationData[index];
+        bool isCompleted = donation['status'] == 'completed';
         bool isExpanded = expandedIndex == index;
         
         return GestureDetector(
@@ -92,8 +184,8 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
                         height: 60,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/homepage/banjirbandang.jpg'),
+                          image: DecorationImage(
+                            image: AssetImage(donation['image']),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -103,18 +195,18 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Donasi Korban Banjir Bandang',
-                              style: TextStyle(
+                            Text(
+                              donation['title'],
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF404345),
                               ),
                             ),
                             const SizedBox(height: 4),
-                            const Text(
-                              'Rp 100.000',
-                              style: TextStyle(
+                            Text(
+                              _formatDonation(donation['donation']),
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF0EBE7F),
@@ -124,44 +216,49 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
                               const SizedBox(height: 12),
                               Row(
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                      height: 40,
-                                      margin: const EdgeInsets.only(right: 8),
-                                      child: MaterialButton(
-                                        onPressed: () {
-                                          // Implementasi lihat dokumentasi
-                                        },
-                                        color: const Color(0xFF0EBE7F),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: const Text(
-                                          'Lihat Dokumentasi',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
+                                  if (isCompleted)
+                                    Expanded(
+                                      child: Container(
+                                        height: 40,
+                                        margin: const EdgeInsets.only(right: 8),
+                                        child: MaterialButton(
+                                          onPressed: () {
+                                            // Implementasi lihat laporan
+                                          },
+                                          color: const Color(0xFF0EBE7F),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                          child: const Text(
+                                            'Lihat Laporan',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
                                   Expanded(
                                     child: Container(
                                       height: 40,
-                                      margin: const EdgeInsets.only(left: 8),
+                                      margin: EdgeInsets.only(left: isCompleted ? 8 : 0),
                                       child: MaterialButton(
                                         onPressed: () {
-                                          // Implementasi riwayat transaksi
+                                          if (donation['type'] == 'uang') {
+                                            _navigateToTransactionHistory(donation);
+                                          }
                                         },
                                         color: const Color(0xFF0EBE7F),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(4),
                                         ),
-                                        child: const Text(
-                                          'Riwayat Transaksi',
-                                          style: TextStyle(
+                                        child: Text(
+                                          donation['type'] == 'barang' 
+                                              ? 'Detail Barang'
+                                              : 'Riwayat Transaksi',
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
@@ -182,9 +279,9 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        '12 Jan 2024',
-                        style: TextStyle(
+                      Text(
+                        donation['date'],
+                        style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF677294),
                         ),
@@ -192,17 +289,17 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
                       Row(
                         children: [
                           Image.asset(
-                            isProcessed ? 'assets/centang.png' : 'assets/jam.png',
+                            isCompleted ? 'assets/centang.png' : 'assets/jam.png',
                             width: 16,
                             height: 16,
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            isProcessed ? 'Donasi Telah Disalurkan' : 'Pembayaran Sedang Diproses',
+                            _getStatusText(donation['status']),
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: isProcessed ? const Color(0xFF0EBE7F) : Colors.orange,
+                              color: _getStatusColor(donation['status']),
                             ),
                           ),
                         ],
@@ -219,6 +316,7 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
   }
 
   Widget _buildViewHistory() {
+    // View history implementation remains the same
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: 5,

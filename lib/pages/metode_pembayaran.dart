@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'donatur/bayarDonasi.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Payment Options',
+      home: PaymentOptionsScreen(),
+    );
+  }
+}
 
 class PaymentOptionsScreen extends StatefulWidget {
-  final Function(String)? onPaymentSelected; // Callback for when payment is confirmed
-  final double? amount; // Optional amount to display
-
-  const PaymentOptionsScreen({
-    super.key,
-    this.onPaymentSelected,
-    this.amount,
-  });
+  const PaymentOptionsScreen({super.key});
 
   @override
   _PaymentOptionsScreenState createState() => _PaymentOptionsScreenState();
@@ -32,50 +47,15 @@ class _PaymentOptionsScreenState extends State<PaymentOptionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text('Pilih Metode Pembayaran'),
+        title: const Text('Payment Options'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (widget.amount != null) ...[
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Total Pembayaran',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      'Rp ${widget.amount?.toStringAsFixed(0) ?? '0'}',
-                      style: const TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24.0),
-            ],
             const Text(
-              'Metode Pembayaran',
+              'Select Payment Method',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -103,32 +83,21 @@ class _PaymentOptionsScreenState extends State<PaymentOptionsScreen> {
               ),
             ),
             const SizedBox(height: 16.0),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: selectedPaymentMethod != null
-                    ? () {
-                        if (widget.onPaymentSelected != null) {
-                          widget.onPaymentSelected!(selectedPaymentMethod!);
-                        }
-                        Navigator.pop(context, selectedPaymentMethod);
-                      }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0EBE7F),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ),
-                child: const Text(
-                  'Lanjutkan Pembayaran',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            ElevatedButton(
+              onPressed: selectedPaymentMethod != null
+                  ? () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BayarDonasi(
+                            selectedPaymentMethod: selectedPaymentMethod!,
+                          ),
+                        ),
+                      );
+                    }
+                  : null,
+                  
+              child: const Text('Proceed to Payment'),
             ),
           ],
         ),
@@ -144,8 +113,7 @@ class PaymentMethodTile extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const PaymentMethodTile({
-    super.key,
+  const PaymentMethodTile({super.key, 
     required this.id,
     required this.name,
     required this.logoPath,
@@ -161,33 +129,33 @@ class PaymentMethodTile extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? const Color(0xFF0EBE7F) : Colors.grey[300]!,
+            color: isSelected ? Colors.green : Colors.grey[300]!,
             width: isSelected ? 2.0 : 1.0,
           ),
           borderRadius: BorderRadius.circular(12.0),
         ),
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               logoPath,
               width: 48.0,
               height: 48.0,
             ),
-            const SizedBox(width: 16.0),
-            Expanded(
-              child: Text(
-                name,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                  color: isSelected ? const Color(0xFF0EBE7F) : null,
-                ),
+            const SizedBox(height: 8.0),
+            Text(
+              name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+                color: isSelected ? Colors.green : null,
               ),
             ),
             if (isSelected)
               const Icon(
                 Icons.check_circle,
-                color: Color(0xFF0EBE7F),
+                color: Colors.green,
                 size: 24.0,
               ),
           ],

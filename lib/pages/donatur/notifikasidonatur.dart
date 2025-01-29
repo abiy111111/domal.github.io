@@ -14,7 +14,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0EBE7F), // Match your app's theme
+        backgroundColor: const Color(0xFF0EBE7F),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -55,6 +55,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
                         title: notification['title'] ?? '',
                         subtitle: notification['subtitle'] ?? '',
                         timestamp: notification['timestamp'] ?? '',
+                        status: notification['status'] ?? '',
+                        showReport: notification['showReport'] ?? false,
                       ))
                   .toList(),
             ),
@@ -93,39 +95,56 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
   }
 
-  List<Map<String, String>> _getNotificationsForTab(int tabIndex) {
+  List<Map<String, dynamic>> _getNotificationsForTab(int tabIndex) {
     if (tabIndex == 0) {
       return [
         {
-          'title': 'Dennis Nedry requested access',
-          'subtitle': 'to Isla Nublar SOC2 compliance report',
-          'timestamp': 'Last Wednesday at 9:42 AM',
-        },
-        {
-          'title': 'Najmah baru saja memposting kampanye:',
-          'subtitle': 'DONASI KUCING TERLANTAR',
+          'title': 'Kampanye Telah Tersalurkan!',
+          'subtitle': 'Donasi anda untuk kampanye "DONASI KUCING TERLANTAR" telah berhasil disalurkan kepada penerima',
           'timestamp': 'Baru saja',
+          'status': 'completed',
+          'showReport': true,
         },
         {
-          'title': 'Adli menyukai komentar anda:',
-          'subtitle': 'semoga adik lekas sembuh',
-          'timestamp': '2 menit yang lalu',
+          'title': 'Terima Kasih Atas Donasi Anda!',
+          'subtitle': 'Donasi sebesar Rp 100.000 untuk kampanye "BANTU OPERASI KUCING" telah kami terima',
+          'timestamp': '2 jam yang lalu',
+          'status': 'processing',
+          'showReport': false,
+        },
+        {
+          'title': 'Kampanye Sedang Disalurkan',
+          'subtitle': 'Donasi anda untuk "STERILISASI KUCING JALANAN" sedang dalam proses penyaluran',
+          'timestamp': '1 hari yang lalu',
+          'status': 'ongoing',
+          'showReport': false,
         },
       ];
     } else if (tabIndex == 1) {
       return [
         {
-          'title': 'Najmah baru saja memposting kampanye:',
-          'subtitle': 'DONASI KUCING TERLANTAR',
+          'title': 'Kampanye Telah Tersalurkan!',
+          'subtitle': 'Donasi anda untuk kampanye "DONASI KUCING TERLANTAR" telah berhasil disalurkan kepada penerima',
           'timestamp': 'Baru saja',
+          'status': 'completed',
+          'showReport': true,
         },
       ];
     } else {
       return [
         {
-          'title': 'Adli menyukai komentar anda:',
-          'subtitle': 'semoga adik lekas sembuh',
-          'timestamp': '2 menit yang lalu',
+          'title': 'Terima Kasih Atas Donasi Anda!',
+          'subtitle': 'Donasi sebesar Rp 100.000 untuk kampanye "BANTU OPERASI KUCING" telah kami terima',
+          'timestamp': '2 jam yang lalu',
+          'status': 'processing',
+          'showReport': false,
+        },
+        {
+          'title': 'Kampanye Sedang Disalurkan',
+          'subtitle': 'Donasi anda untuk "STERILISASI KUCING JALANAN" sedang dalam proses penyaluran',
+          'timestamp': '1 hari yang lalu',
+          'status': 'ongoing',
+          'showReport': false,
         },
       ];
     }
@@ -136,12 +155,16 @@ class NotificationCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final String timestamp;
+  final String status;
+  final bool showReport;
 
   const NotificationCard({
     super.key,
     required this.title,
     required this.subtitle,
     required this.timestamp,
+    required this.status,
+    required this.showReport,
   });
 
   @override
@@ -157,13 +180,24 @@ class NotificationCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: Color(0xFF404345),
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color: Color(0xFF404345),
+                    ),
+                  ),
+                ),
+                Image.asset(
+                  status == 'completed' ? 'assets/centang.png' : 'assets/jam.png',
+                  width: 20,
+                  height: 20,
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             Text(
@@ -181,31 +215,23 @@ class NotificationCard extends StatelessWidget {
                 fontSize: 10,
               ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0EBE7F),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            if (showReport) ...[
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF0EBE7F),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    ),
+                    child: const Text('Lihat Laporan', style: TextStyle(fontSize: 12)),
                   ),
-                  child: const Text('Setuju', style: TextStyle(fontSize: 12)),
-                ),
-                const SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[200],
-                    foregroundColor: const Color(0xFF677294),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  ),
-                  child: const Text('Abaikan', style: TextStyle(fontSize: 12)),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ],
         ),
       ),

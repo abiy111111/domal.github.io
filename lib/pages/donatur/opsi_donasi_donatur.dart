@@ -33,24 +33,26 @@ class _PilihDonasiState extends State<PilihDonasi> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // App Bar
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        const Text(
-                          'Opsi Donasi',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                  Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              color: Colors.white,
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(Icons.arrow_back_ios, size: 20),
+                  ),
+                  const SizedBox(width: 16),
+                  const Text(
+                    'Opsi Donasi',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
                     ),
                   ),
+                ],
+              ),
+            ),
 
                   // Campaign Info Card
                   Padding(

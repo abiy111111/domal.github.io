@@ -11,8 +11,6 @@ class DonationPaymentScreen extends StatelessWidget {
 
   DonationPaymentScreen({super.key});
 
-   
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +23,7 @@ class DonationPaymentScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'pembayaran',
+          'Pembayaran',
           style: TextStyle(
             color: Colors.black,
             fontSize: 16,
@@ -47,7 +45,7 @@ class DonationPaymentScreen extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.network(
-                        'assets/korban manado.jpg',
+                        'assets/homepage/banjirbandang.jpg',
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover,
@@ -155,7 +153,7 @@ class DonationPaymentScreen extends StatelessWidget {
                         child: LinearProgressIndicator(
                           value: 0.75,
                           backgroundColor: Colors.grey.shade200,
-                          color: Colors.green,
+                          color: const Color(0xFF0EBE7F), // Warna hijau diperbarui
                           minHeight: 8,
                         ),
                       ),
@@ -175,44 +173,45 @@ class DonationPaymentScreen extends StatelessWidget {
             ),
           ),
           // Payment Button
-Positioned(
-  left: 0,
-  right: 0,
-  bottom: 0,
-  child: Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(
-        top: BorderSide(color: Colors.grey.shade200),
-      ),
-    ),
-    child: ElevatedButton(
-      onPressed: () {
-        // Navigasi ke halaman metode_pembayaran.dart
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>PaymentOptionsScreen()), // Gantilah dengan halaman metode_pembayaran.dart
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 16),
-      ),
-      child: const Text(
-        'lakukan pembayaran',
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    ),
-  ),
-),
-
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  top: BorderSide(color: Colors.grey.shade200),
+                ),
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navigasi ke halaman metode_pembayaran.dart
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PaymentOptionsScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0EBE7F), // Warna hijau diperbarui
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: const Text(
+                  'Lakukan Pembayaran',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white, // Warna teks putih
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
