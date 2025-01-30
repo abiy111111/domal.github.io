@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'dart:math' as math;
 import 'package:confetti/confetti.dart';
-
+import 'homepageDonatur.dart';
 
 
 class BayarDonasi extends StatefulWidget {
@@ -445,10 +445,10 @@ SizedBox(
 class ThankYouAnimation extends StatefulWidget {
   final int amount;
 
-  const ThankYouAnimation({super.key, required this.amount});
+  const ThankYouAnimation({Key? key, required this.amount}) : super(key: key);
 
   @override
-  _ThankYouAnimationState createState() => _ThankYouAnimationState();
+  State<ThankYouAnimation> createState() => _ThankYouAnimationState();
 }
 
 class _ThankYouAnimationState extends State<ThankYouAnimation>
@@ -502,9 +502,17 @@ class _ThankYouAnimationState extends State<ThankYouAnimation>
     _confettiController = ConfettiController(duration: const Duration(seconds: 3));
     Future.delayed(const Duration(milliseconds: 500), () => _confettiController.play());
 
+    // Update the navigation logic
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
-        Navigator.of(context).popUntil((route) => route.isFirst);
+        // Navigate to HomepageDonatur and remove all previous routes
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomepageDonatur(),
+          ),
+          (route) => false, // This will remove all previous routes
+        );
       }
     });
   }
@@ -536,7 +544,6 @@ class _ThankYouAnimationState extends State<ThankYouAnimation>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-            
                 AnimatedBuilder(
                   animation: _imageAnimation,
                   builder: (context, child) {

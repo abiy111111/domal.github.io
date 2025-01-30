@@ -13,6 +13,15 @@ class Message {
 }
 
 class ChatPage extends StatefulWidget {
+  final String managerName;
+  final String managerContact;
+
+  const ChatPage({
+    super.key, 
+    required this.managerName, 
+    required this.managerContact,
+  });
+
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -36,27 +45,30 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0EBE7F),
+        backgroundColor: const Color(0xFF0EBE7F),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         title: Row(
           children: [
             CircleAvatar(
               backgroundColor: Colors.white,
-              child: Text('A', style: TextStyle(color: Color(0xFF0EBE7F))),
+              child: Text(
+                widget.managerName[0], // Menggunakan huruf pertama dari nama manager
+                style: const TextStyle(color: Color(0xFF0EBE7F)),
+              ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
-              'Abiy',
-              style: TextStyle(color: Colors.white),
+              widget.managerName,
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.info_outline, color: Colors.white),
+            icon: const Icon(Icons.info_outline, color: Colors.white),
             onPressed: () {},
           ),
         ],
@@ -65,21 +77,21 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               itemCount: _messages.length,
               itemBuilder: (context, index) {
                 final message = _messages[index];
                 final bool isMe = message.sender == "@Me";
 
                 return Padding(
-                  padding: EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(bottom: 8),
                   child: Column(
                     crossAxisAlignment: isMe 
                       ? CrossAxisAlignment.end 
                       : CrossAxisAlignment.start,
                     children: [
                       if (index == 0 || _shouldShowDate(index))
-                        Center(
+                        const Center(
                           child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),
                             child: Text(
@@ -93,10 +105,10 @@ class _ChatPageState extends State<ChatPage> {
                         ),
                       if (!isMe)
                         Padding(
-                          padding: EdgeInsets.only(left: 8, bottom: 4),
+                          padding: const EdgeInsets.only(left: 8, bottom: 4),
                           child: Text(
                             message.sender,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
                             ),
@@ -107,7 +119,7 @@ class _ChatPageState extends State<ChatPage> {
                           left: isMe ? 50 : 0,
                           right: isMe ? 0 : 50,
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 10,
                         ),
@@ -121,7 +133,7 @@ class _ChatPageState extends State<ChatPage> {
                             Flexible(
                               child: Text(message.text),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               '${message.timestamp.hour}:${message.timestamp.minute.toString().padLeft(2, '0')}',
                               style: TextStyle(
@@ -139,7 +151,7 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -153,20 +165,20 @@ class _ChatPageState extends State<ChatPage> {
             child: Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.camera_alt),
-                  color: Color(0xFF0EBE7F),
+                  icon: const Icon(Icons.camera_alt),
+                  color: const Color(0xFF0EBE7F),
                   onPressed: () {},
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                      color: Color(0xFF0EBE7F).withOpacity(0.1),
+                      color: const Color(0xFF0EBE7F).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: TextField(
                       controller: _messageController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Ketik sesuatu...',
                         border: InputBorder.none,
                       ),
@@ -174,8 +186,8 @@ class _ChatPageState extends State<ChatPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
-                  color: Color(0xFF0EBE7F),
+                  icon: const Icon(Icons.send),
+                  color: const Color(0xFF0EBE7F),
                   onPressed: _sendMessage,
                 ),
               ],

@@ -255,7 +255,10 @@ class _MessageScreenState extends State<MessageScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChatPage(),
+              builder: (context) => ChatPage(
+                   managerName: "John Doe",
+      managerContact: "08123456789", 
+              ),
             ),
           );
         },

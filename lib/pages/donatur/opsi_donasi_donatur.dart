@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pasca_bayar.dart';
+import 'inputBarang.dart';
 
 class PilihDonasi extends StatefulWidget {
   const PilihDonasi({super.key});
@@ -220,8 +221,13 @@ class _PilihDonasiState extends State<PilihDonasi> {
                   MaterialPageRoute(builder: (context) =>  DonationPaymentScreen()),
                 );
               }
-              // Jika ada kebutuhan lain (misalnya, opsi "Barang"), bisa ditangani di sini.
-            }
+             else if (selectedDonationType == 'barang') {
+         Navigator.push(
+           context,
+           MaterialPageRoute(builder: (context) => InputBarangPage()),
+         );
+       }
+     }
           : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF0EBE7F),
