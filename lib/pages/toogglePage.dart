@@ -1,6 +1,7 @@
 // togglePage.dart
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'loginpage.dart';
 
 class TogglePage extends StatelessWidget {
   const TogglePage({super.key});
@@ -79,7 +80,10 @@ class AppDrawerContent extends StatelessWidget {
       'icon': Icons.logout,
       'label': 'Logout',
       'onTap': (BuildContext context) {
-        // Implement logout functionality
+         Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+         );
       }
     },
   ];

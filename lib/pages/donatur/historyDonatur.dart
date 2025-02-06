@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'riwayatTransaksi.dart';
+import 'transaksiBarang.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -24,22 +25,30 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
       'transactionId': 'TRX202401120001',
       'transactionDateTime': DateTime(2024, 1, 12, 14, 30),
     },
-    {
-      'title': 'Bantuan Gempa Aceh',
-      'donation': '5 Kardus Pakaian Layak Pakai',
-      'date': '15 Jan 2024',
-      'status': 'collecting',
-      'type': 'barang',
-      'image': 'assets/homepage/banjirbandang.jpg',
-    },
-    {
-      'title': 'Donasi Panti Asuhan',
-      'donation': '2 Kardus Buku & Alat Tulis',
-      'date': '18 Jan 2024',
-      'status': 'ongoing',
-      'type': 'barang',
-      'image': 'assets/homepage/banjirbandang.jpg',
-    },
+  {
+    'title': 'Bantuan Gempa Aceh',
+    'donation': '5 Kardus Pakaian Layak Pakai',
+    'date': '15 Jan 2024',
+    'status': 'collecting',
+    'type': 'barang',
+    'image': 'assets/homepage/banjirbandang.jpg',
+    'shippingCost': 15000,
+    'transactionId': 'TRX202401150001',
+    'address': 'Jl. Contoh No. 123, Kota Jakarta, 12345',
+    'transactionDateTime': DateTime(2024, 1, 15, 10, 30),
+  },
+  {
+    'title': 'Donasi Panti Asuhan',
+    'donation': '5 Kardus Pakaian Layak Pakai',
+    'date': '15 Jan 2024',
+    'status': 'collecting',
+    'type': 'barang',
+    'image': 'assets/homepage/banjirbandang.jpg',
+    'shippingCost': 15000,
+    'transactionId': 'TRX202401150001',
+    'address': 'Jl. Contoh No. 123, Kota Jakarta, 12345',
+    'transactionDateTime': DateTime(2024, 1, 15, 10, 30),
+  },
     {
       'title': 'Donasi Bencana Longsor',
       'donation': 250000,
@@ -51,14 +60,18 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
       'transactionId': 'TRX202401200002',
       'transactionDateTime': DateTime(2024, 1, 20, 15, 45),
     },
-    {
-      'title': 'Bantuan Korban Kebakaran',
-      'donation': '3 Kardus Sembako',
-      'date': '22 Jan 2024',
-      'status': 'collecting',
-      'type': 'barang',
-      'image': 'assets/homepage/banjirbandang.jpg',
-    },
+  {
+    'title': 'Bantuan Gempa Aceh',
+    'donation': '5 Kardus Pakaian Layak Pakai',
+    'date': '15 Jan 2024',
+    'status': 'collecting',
+    'type': 'barang',
+    'image': 'assets/homepage/banjirbandang.jpg',
+    'shippingCost': 15000,
+    'transactionId': 'TRX202401150001',
+    'address': 'Jl. Contoh No. 123, Kota Jakarta, 12345',
+    'transactionDateTime': DateTime(2024, 1, 15, 10, 30),
+  },
   ];
 
   @override
@@ -95,23 +108,46 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
   Color _getStatusColor(String status) {
     return status == 'completed' ? const Color(0xFF0EBE7F) : Colors.orange;
   }
-
-  void _navigateToTransactionHistory(Map<String, dynamic> donation) {
-    if (donation['type'] == 'uang') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => RiwayatTransaksi(
-            amount: donation['donation'] as int,
-            selectedPaymentMethod: donation['paymentMethod'],
-            transactionId: donation['transactionId'],
-            transactionDateTime: donation['transactionDateTime'],
-          ),
+void _navigateToTransactionHistory(Map<String, dynamic> donation) {
+  if (donation['type'] == 'uang') {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RiwayatTransaksi(
+          amount: donation['donation'] as int,
+          selectedPaymentMethod: donation['paymentMethod'],
+          transactionId: donation['transactionId'],
+          transactionDateTime: donation['transactionDateTime'],
         ),
-      );
+      ),
+    );
+  } else if (donation['type'] == 'barang') {
+    // Pastikan semua parameter required tersedia
+    DateTime transactionDateTime;
+    if (donation['transactionDateTime'] != null) {
+      transactionDateTime = donation['transactionDateTime'];
+    } else {
+      // Jika tidak ada, gunakan waktu sekarang
+      transactionDateTime = DateTime.now();
     }
-  }
 
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TransaksiBarang(
+          title: donation['title'],
+          donation: donation['donation'],
+          date: donation['date'],
+          image: donation['image'],
+          shippingCost: donation['shippingCost'] ?? 15000, // Default value jika tidak ada
+          transactionId: donation['transactionId'] ?? 'TRX-${DateTime.now().millisecondsSinceEpoch}', // Generate ID jika tidak ada
+          address: donation['address'] ?? 'Alamat tidak tersedia', // Default value jika tidak ada
+          transactionDateTime: transactionDateTime,
+        ),
+      ),
+    );
+  }
+}
   String _formatDonation(dynamic donation) {
     if (donation is int) {
       return 'Rp ${donation.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}';
@@ -240,16 +276,12 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
                                         ),
                                       ),
                                     ),
-                                  Expanded(
+                    Expanded(
                                     child: Container(
                                       height: 40,
                                       margin: EdgeInsets.only(left: isCompleted ? 8 : 0),
                                       child: MaterialButton(
-                                        onPressed: () {
-                                          if (donation['type'] == 'uang') {
-                                            _navigateToTransactionHistory(donation);
-                                          }
-                                        },
+                                        onPressed: () => _navigateToTransactionHistory(donation),  // Perbaikan disini
                                         color: const Color(0xFF0EBE7F),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(4),

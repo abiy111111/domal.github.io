@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'tambahAlamat.dart';
 import '../HalamanChat.dart';
+import 'selesaiDonasi.dart';
 
 class PickupConfirmationScreen extends StatefulWidget {
   const PickupConfirmationScreen({Key? key}) : super(key: key);
@@ -351,8 +352,7 @@ class _PickupConfirmationScreenState extends State<PickupConfirmationScreen> {
       ),
     );
   }
-
-  Widget _buildActionButtons() {
+ Widget _buildActionButtons() {
     return Row(
       children: [
         Expanded(
@@ -370,7 +370,10 @@ class _PickupConfirmationScreenState extends State<PickupConfirmationScreen> {
         Expanded(
           child: ElevatedButton(
             onPressed: () {
-              // Handle confirmation
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SelesaiDonasi()),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: themeColor,
