@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'riwayatTransaksi.dart';
 import 'transaksiBarang.dart';
+import 'laporanDonasi.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -259,7 +260,10 @@ void _navigateToTransactionHistory(Map<String, dynamic> donation) {
                                         margin: const EdgeInsets.only(right: 8),
                                         child: MaterialButton(
                                           onPressed: () {
-                                            // Implementasi lihat laporan
+                                            Navigator.push(
+                                            context,
+                                             MaterialPageRoute(builder: (context) => LaporanDonasi()),
+                                             );
                                           },
                                           color: const Color(0xFF0EBE7F),
                                           shape: RoundedRectangleBorder(

@@ -39,6 +39,8 @@ dependencies:
   intl: ^0.20.1
   path_provider_android: ^2.2.15
   confetti: ^0.8.0
+  qr_code_scanner: ^1.0.1
+  permission_handler: ^10.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -48,7 +50,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -69,6 +71,11 @@ flutter:
      - assets/facebook.png
      - assets/handuk.jpg
      - assets/homepage/
+     - assets/korbanbanjir.jpg
+     - assets/korban.jpg
+     - assets/banjir.jpg
+     - assets/kebanjiran.jpg
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
