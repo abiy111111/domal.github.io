@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:domalapp/pages/opening.dart';
-import 'package:domalapp/pages/donatur/qrKampanye.dart';
+import 'package:domalapp/pages/donatur/homepageDonatur.dart';
 import 'package:domalapp/pages/pengelola/homepagePengelola.dart';
 
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const ScanQRPage(),
+      home: const HomepageDonatur(),
     );
   }
 }

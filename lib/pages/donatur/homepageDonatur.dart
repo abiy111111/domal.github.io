@@ -8,6 +8,7 @@ import 'historyDonatur.dart';
 import '../detailKampanye.dart';
 import 'profileDonatur.dart';
 import 'notifikasidonatur.dart';
+import 'qrKampanye.dart';
 
 
 
@@ -115,14 +116,13 @@ void _onItemTapped(int index) {
         context,
         MaterialPageRoute(builder: (context) => const MessageScreen()),
       );
-     
-        } else if (index == 3) {
+ 
+    }  else if(index == 2){
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const HistoryPage()),
+        MaterialPageRoute(builder: (context) => const ScanQRPage()),
       );
- 
-    } else if (index == 3) {
+      }else if (index == 3) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const HistoryPage()),

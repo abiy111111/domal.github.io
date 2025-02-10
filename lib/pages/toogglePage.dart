@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'loginpage.dart';
+import 'privacyPolicy.dart';
+import 'helpCenter.dart';
+import 'setting.dart';
 
 class TogglePage extends StatelessWidget {
   const TogglePage({super.key});
@@ -59,21 +62,33 @@ class AppDrawerContent extends StatelessWidget {
       'icon': Icons.privacy_tip,
       'label': 'Privacy & Policy',
       'onTap': (BuildContext context) {
-        // Add privacy page navigation
+                 Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => PrivacyPolicyPage()),
+         );
       }
     },
     {
       'icon': Icons.help,
       'label': 'Help Center',
       'onTap': (BuildContext context) {
-        // Add help center navigation
+                 Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HelpCenterPage()),
+         );
       }
     },
     {
       'icon': Icons.settings,
       'label': 'Settings',
       'onTap': (BuildContext context) {
-        // Add settings navigation
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SettingsPage(userRole: UserRole.donatur),
+
+      ),
+    );
       }
     },
     {
